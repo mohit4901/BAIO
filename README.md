@@ -11,35 +11,41 @@ The platform follows modern best‑practice architecture, is containerised with 
 ---
 
 ## 🏗️ High‑Level Design (HLD)
+
 ```mermaid
 flowchart TB
-    subgraph Frontend [Public Frontend (Vite + React)]
-        direction TB
-        FE[React SPA] -->|API Calls| BE
+    subgraph FrontendSG[Public Frontend - Vite + React]
+        FE[React SPA]
     end
-    subgraph AdminPortal [Admin Portal (Vite + React)]
-        direction TB
-        Admin[React SPA] -->|API Calls| BE
+    subgraph AdminSG[Admin Portal - Vite + React]
+        Admin[React SPA]
     end
-    subgraph Backend [Backend (Node.js + Express)]
-        direction TB
-        BE[Express Server] -->|DB Queries| DB[(MongoDB)]
-        BE -->|Email| SMTP[(SMTP Service)]
-        BE -->|File Storage| Cloud[(Cloudinary)]
+    subgraph BackendSG[Backend - Node.js + Express]
+        BE[Express Server]
+        DB[(MongoDB)]
+        SMTP[(SMTP Service)]
+        Cloud[(Cloudinary)]
+        BE --> DB
+        BE --> SMTP
+        BE --> Cloud
     end
-    subgraph DevOps [DevOps]
-        direction LR
-        Docker[Docker Compose] --> FE
-        Docker --> Admin
-        Docker --> BE
+    subgraph DevOpsSG[DevOps - Docker Compose]
+        Docker[Docker Compose]
     end
-    style Frontend fill:#E0F7FA,stroke:#006064,stroke-width:2px
-    style AdminPortal fill:#FFF3E0,stroke:#E65100,stroke-width:2px
-    style Backend fill:#F1F8E9,stroke:#33691E,stroke-width:2px
-    style DevOps fill:#ECEFF1,stroke:#37474F,stroke-width:2px
-``` 
 
-The diagram depicts the three main logical components (frontend, admin, backend) and their interactions with external services (MongoDB, SMTP, Cloudinary) and the Docker‑Compose orchestration layer.
+    FE -->|API Calls| BE
+    Admin -->|API Calls| BE
+    Docker --> FE
+    Docker --> Admin
+    Docker --> BE
+
+    style FrontendSG fill:#E0F7FA,stroke:#006064,stroke-width:2px
+    style AdminSG fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+    style BackendSG fill:#F1F8E9,stroke:#33691E,stroke-width:2px
+    style DevOpsSG fill:#ECEFF1,stroke:#37474F,stroke-width:2px
+```
+
+The diagram shows the three main logical components — Public Frontend, Admin Portal, and Backend — and their interactions with MongoDB, SMTP, and Cloudinary, all orchestrated by Docker Compose.
 
 ---
 
