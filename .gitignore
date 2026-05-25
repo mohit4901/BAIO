@@ -1,0 +1,35 @@
+# Node modules
+device_modules/
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Environment files
+.env
+.env.*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Build directories
+build/
+/dist/
+
+# Vite / React production files
+/.vite/
+/.next/
+
+# IDE files
+.idea/
+.vscode/
+
+# Misc
+coverage/
+
+# Packages
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
